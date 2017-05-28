@@ -1,18 +1,19 @@
 from __future__ import unicode_literals  # for python2 compatibility
 # -*- coding: utf-8 -*-
-# created at UC Berkeley 2015
-# Authors: Christopher Hench, Alex Estes
-
-'''This program contains a function 'syllabipymhg' that syllbifies
-Middle High German words for further analysis.
-Input is string (word), output is list of strings with syllables.'''
+# created at UC Berkeley 2017
+# Authors: Christopher Hench
+# ==============================================================================
 
 import codecs
 import re
-import csv  # for generating exception file
+import csv  # for generating/reading exception file
 
 
 def syllabipymhg(word):
+    '''
+    The function 'syllabipymhg' syllabifies.
+    Input is string (word), output is list of strings of the syllables.
+    '''
 
     def no_syll_no_vowel(ss):
         # no syllable if no vowel
@@ -341,6 +342,5 @@ def syllabipymhg(word):
     return (newsylset)
 
 if __name__ == '__main__':
-    # use this to check words, DO NOT USE special characters, will not display
-    # due to terminal encoding
+    # use this to check words
     print(syllabipymhg("richtigheite"))

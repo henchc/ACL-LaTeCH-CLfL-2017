@@ -1,21 +1,68 @@
-'''This function takes as input a text file of strophe separated by one blank space,
-or a python list of stanzas. It yields tagged syllables with endings and weights
-as well as ratios for each stanza'''
+from __future__ import unicode_literals  # for python2 compatibility
+# -*- coding: utf-8 -*-
+# created at UC Berkeley 2017
+# Authors: Christopher Hench
+# ==============================================================================
+
+'''
+These functions are utilities for the analysis in the paper
+"Phonological Soundscapes in Medieval Lyric" at the
+LaTeCH/CLFL workshop at the 2017 ACL in Vancouver.
+'''
+
+from string import punctuation
+import sys
+from syllabipymhg import syllabipymhg
+from collections import Counter
 
 
-def process(filepath=False, stanza_text=False):
+def flatten(seq, levels):
+    '''
+    flattens list to given level
+    '''
+    for x in range(levels):
+        seq = [item for sublist in seq for item in sublist]
+    return seq
 
-    import sys
-    from syllabipymhg import syllabipymhg
-    from get_features import syllableend
-    from get_features import syllableweight
-    from clean_text import cleantext
-    from process_for_syll_feats import process
 
-    def flatten(seq, levels):
-        for x in range(levels):
-            seq = [item for sublist in seq for item in sublist]
-        return seq
+def cleantext(text):
+    '''
+    Cleans texts for analysis. Input string.
+    '''
+
+    text = text.lower()  # lowercase
+    remove_char = "›‹»«˃˂-—〈〉0123456789♦•—¿·" + punctuation
+
+    for char in remove_char:
+        text = text.replace(char, '')
+
+    return (text)
+
+
+def syllableend(syl):
+    '''
+    yields whether syllabes is open or closed
+    '''
+
+    vowels = 'aeiouyàáâäæãåāèéêëēėęîïíīįìôöòóœøōõûüùúūůÿ'
+
+    # open syllables
+    if syl[-1] in vowels:
+        ending = "O"
+
+    # close syllables
+    else:
+        ending = "C"
+
+    return(ending)
+
+
+def process_soundscapes(filepath=False, stanza_text=False):
+    '''
+    This function takes as input a text file of strophe separated by one blank space,
+    or a python list of stanzas. It yields tagged syllables with endings and weights
+    as well as ratios for each stanza
+    '''
 
     if filepath:
         with open(filepath, "r") as f:
@@ -51,7 +98,6 @@ def process(filepath=False, stanza_text=False):
         ratios_end.append(line_ratios_end)
         ratios_weight.append(line_ratios_weight)
 
-    from collections import Counter
     ratios_end = [Counter(s) for s in ratios_end]
     ratios_weight = [Counter(s) for s in ratios_weight]
 
