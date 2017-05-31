@@ -45,8 +45,8 @@ def syllabipymhg(word):
     # THIS SECTION PREPARES ORTHOGRAPHY AND ASSIGNS VALUE
 
     # list of basic sounds
-    longvowels = "âæāêēîīôœōûū"
-    vowels = 'aeiouyàáâäæãåāèéêëēėęîïíīįìôöòóœøōõûüùúūůÿ'  # includes long vowels
+    longvowels = "âæāêēîīôœōûūȳ"
+    vowels = 'aeiouyàáâäæãåāèéêëēėęîïíīįìôöòóœøōõûüùúūůÿȳý'  # includes long vowels
     resonants = "lmnrw"
     consonants = "bcdgtkpqvxhçłžsfzj"
 
