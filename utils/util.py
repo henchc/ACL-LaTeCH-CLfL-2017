@@ -57,6 +57,37 @@ def syllableend(syl):
     return(ending)
 
 
+def syllableweight(syl):
+    '''
+    yields whether syllable is heavy or light
+    '''
+    vowels = 'aeiouyàáâäæãåāèéêëēėęîïíīįìôöòóœøōõûüùúūůÿ'
+    longvowels = "âæāêēîīôœōûū"
+
+    # ending not a vowel, heavy
+    if len(syl) > 1 and syl[-1] not in vowels:
+        weight = "H"
+
+    # ending double vowel, heavy
+    elif len(syl) > 1 and syl[-2] in vowels and syl[-1] in vowels:
+        weight = "H"
+
+    # ending long vowel, heavy
+    elif len(syl) > 1 and syl[-1] in longvowels:
+        weight = "H"
+
+    elif len(syl) == 1:
+        if str(syl) in longvowels:
+            weight = "H"
+        else:
+            weight = "L"
+
+    else:
+        weight = "L"
+
+    return(weight)
+
+
 def process_soundscapes(filepath=False, stanza_text=False):
     '''
     This function takes as input a text file of strophe separated by one blank space,
